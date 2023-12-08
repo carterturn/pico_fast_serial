@@ -59,6 +59,10 @@ uint32_t fast_serial_write(const char * buffer, uint32_t buffer_size){
 		uint32_t write_avail = fast_serial_write_available();
 
 		if(write_avail > 0){
+			if(buffer_size - buffer_idx < write_avail){
+				write_avail = buffer_size - buffer_idx;
+			}
+
 			buffer_idx += fast_serial_write_atomic(buffer + buffer_idx, write_avail);
 		}
 		fast_serial_task();
