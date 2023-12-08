@@ -61,6 +61,9 @@ static inline uint32_t fast_serial_write_atomic(const char * buffer, uint32_t bu
 // Write bytes (without flushing)
 uint32_t fast_serial_write(const char * buffer, uint32_t buffer_size);
 
+// print via fast_serial_write
+int fast_serial_printf(const char * format, ...);
+
 // Force write of data. Returns number of bytes written.
 static inline uint32_t fast_serial_write_flush(){
 	return tud_cdc_write_flush();

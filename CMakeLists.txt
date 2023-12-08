@@ -15,3 +15,12 @@ target_include_directories(fast_serial PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 target_link_libraries(fast_serial pico_stdlib pico_unique_id tinyusb_device tinyusb_board)
 
 pico_add_extra_outputs(fast_serial)
+
+add_executable(fast_serial_echo)
+target_sources(fast_serial_echo PUBLIC fast_serial_echo_test.c fast_serial.c)
+
+target_include_directories(fast_serial_echo PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
+target_link_libraries(fast_serial_echo pico_stdlib pico_unique_id tinyusb_device tinyusb_board)
+
+pico_add_extra_outputs(fast_serial_echo)

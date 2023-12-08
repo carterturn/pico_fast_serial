@@ -1,6 +1,8 @@
 #include "tusb.h"
 #include "pico/unique_id.h"
 
+#include <stdarg.h>
+
 #include "fast_serial.h"
 
 /*
@@ -69,6 +71,18 @@ uint32_t fast_serial_write(const char * buffer, uint32_t buffer_size){
 		fast_serial_write_flush();
 	}
 	return buffer_size;
+}
+
+int fast_serial_printf(const char * format, ...){
+	va_list va;
+	va_start(va, format);
+	char printf_buffer[128];
+	int ret = vsnprintf(printf_buffer, 128, format, va);
+	va_end(va);
+	if(ret <= 0){
+		return ret;
+	}
+	return fast_serial_write(printf_buffer, strnlen(printf_buffer, 128));
 }
 
 /*
